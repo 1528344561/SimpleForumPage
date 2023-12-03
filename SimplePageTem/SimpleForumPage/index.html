@@ -1,0 +1,50 @@
+<html>
+  <head>
+    <link href="styles.css" type="text/css" rel="stylesheet"/>
+    <title>SimpleForum</title>
+    <iframe scrolling="no" src="header.html" frameborder="0"></iframe>
+  </head>
+  <body>
+  
+  <h2>SimpleForum</h2>
+
+  <div id="main_table" style="width: 50%;">
+    <table>
+      <tr>
+        <th>贴吧头像</th>
+        <th>贴吧名称</th>
+        <th>关注人数</th>
+      </tr>
+      <tr>
+        <td><img src="src/img.png"></td>
+        <td>孙笑川吧</td>
+        <td>114514</td>
+      </tr>
+      <tr>
+        <td>单元格4</td>
+        <td>单元格5</td>
+        <td>单元格6</td>
+      </tr>
+    </table>
+  </div>
+  <a href="/hello" target="_blank">My Servlet</a>
+  <p>This is the SimpleForum.</p>
+  <p>The site show:</p>
+
+  <div id="app">
+    <h2>{{msg}}</h2>
+  </div>
+
+  <!--引入vue模块-->
+    <script type="module">
+        import{createApp} from 'https://unpkg.com/vue@3/dist/vue.esm-browser.js';
+        createApp({
+            data(){
+                return {
+                    msg:'hello vue3'
+                }
+            }
+        }).mount("#app");
+    </script>
+  </body>
+</html>

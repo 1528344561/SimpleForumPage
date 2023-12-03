@@ -1,0 +1,80 @@
+#footer{
+    margin: 10px 0px;
+    background: #f5f5f5;
+    border-top: 1px solid #eee;
+}
+#footerCon{
+    width: 1190px;
+    margin: 10px auto 0px;
+}
+#footerCon #links{
+    border-bottom: 1px solid #eee;
+    overflow: hidden;
+    padding-bottom: 20px;
+}
+#footerCon #links dl{
+    float: left;
+    width: 200px;
+    margin-right: 52px;
+    overflow: hidden;
+}
+#footerCon #links dl dt{
+    color: #646464;
+    padding-bottom: 10px;
+    font-weight: 700;
+    padding-left: 40px;
+    font-size: 16px;
+
+}
+#footerCon #links dl dd{
+    line-height: 25px;
+}
+#footerCon #otherLinks{
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+}
+#footerCon #copyRight{
+    line-height: 30px;
+    text-align: center;
+}
+
+a {
+    text-decoration: none;
+    color: deepskyblue;
+}
+a:hover{
+    color: red;
+}
+
+h2{
+    text-align: center;
+    color :cornflowerblue;
+    font-weight: 800;
+    font-size: 100px;
+    font-family: Cambria;
+}
+#main_table{
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 30px;
+    text-align: center;
+}
+
+#header {
+    background-color: #f1f1f1;
+    padding: 20px;
+    text-align: center;
+    margin-bottom: 50px;
+}
+#header a {
+    margin:0 10px;
+    text-decoration: none;
+    color: #333;
+}
+#Header_Home{
+    margin-left: 0px;
+    text-align: left;
+    color: cadetblue;
+    float: left;
+}

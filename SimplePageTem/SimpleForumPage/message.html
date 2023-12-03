@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <button id="btn">点我展示信息</button>
+    </div>
+    <script type="module">
+        // import {complexMessage} from './showMessage.js';
+        //导出和批量导出在导入时需要加花括号(可以用as 起别名),而默认导出不加花括号
+        import showMessageMethods from './showMessage.js'
+        document.getElementById("btn").onclick=function(){
+            showMessageMethods.complexMessage("hello");
+        }
+    </script>
+</body>
+</html>
