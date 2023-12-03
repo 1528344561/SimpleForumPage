@@ -1,3 +1,6 @@
+git冲突
+[视频讲解](https://www.bilibili.com/video/BV1BA41117Qb)
+
 1.注册页面搭建
     参考接口文档给属性起名
 
