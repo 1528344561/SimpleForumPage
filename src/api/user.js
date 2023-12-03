@@ -8,5 +8,5 @@ export const userRegisterService = (registerData)=>{
     }
 
     //如果直接传 registerData,传的是json
-    return request.post('/user/register',params);
+    return request.post('/user/register',params);;
 }
