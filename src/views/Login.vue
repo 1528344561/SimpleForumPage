@@ -39,20 +39,36 @@ const rules={
 import {userRegisterService} from '@/api/user.js'
 //注册接口
 const register = async()=>{
-    let result = await userRegisterService(registerData.value);
-    if(result.code===0){
-        //success
-        alert('注册成功'+result.message)
-    }else{
-        alert(result.message)
+    if(registerData.value.password!==registerData.value.rePassword){
+        
+    }
+    else{
+    
+        let result = await userRegisterService(registerData.value);
+        if(result.code===0){
+            //success
+            alert('注册成功'+result.message)
+        }else{
+            alert(result.message)
+        }
     }
 }
 </script>
 
 <template>
     <el-row class="login-page">
-        <el-col :span="12" class="bg"></el-col>
+        <el-col :span="12" class="bg">
+        <div id="capter">
+            <h1>SimpleForum</h1>
+        </div>
+        <div id = "introduction">
+            <h3>We feel excited for your coming!</h3>
+        </div>
+        </el-col>
         <el-col :span="6" :offset="3" class="form">
+            <div id="websitename">
+                <h1>SimpleForum</h1>
+            </div>
             <!-- 注册表单 -->
             <el-form ref="form" size="large" autocomplete="off" v-if="isRegister" :model="registerData" :rules="rules">
                 <el-form-item>
@@ -108,6 +124,16 @@ const register = async()=>{
             </el-form>
         </el-col>
     </el-row>
+    <el-row>
+        
+    </el-row>
+
+   <div id="foot">
+    
+    <footer>
+        <h5>CopyRight 2023 created by LZH and QSM</h5>
+    </footer>
+   </div>
 </template>
 
 <style lang="scss" scoped>
@@ -117,8 +143,10 @@ const register = async()=>{
     background-color: #fff;
 
     .bg {
-        background: url('@/assets/logo2.png') no-repeat 60% center / 240px auto,
-            url('@/assets/login_bg.jpg') no-repeat center / cover;
+        // background: url('@/assets/logo3.png') no-repeat 60% center / 240px auto,
+        //     url('@/assets/login_bg.jpg') no-repeat center / cover;
+
+        // background: url('@/assets/logo3.png') no-repeat 60% center / 240px auto;
         border-radius: 0 20px 20px 0;
     }
 
@@ -141,6 +169,46 @@ const register = async()=>{
             display: flex;
             justify-content: space-between;
         }
+    }
+    #capter{
+        margin: auto;
+        display: flex;
+        // text-align: center;
+        color:cornflowerblue;
+        justify-content: center;
+        font-size: 60px;
+        font-weight: 80px;
+        font-family: Cambria;
+    }
+    #websitename{
+        color:cornflowerblue;
+        font-family: Cambria;
+        font-size: 200%;
+        font-weight: 200%;
+    }
+    #introduction{
+        color:darkgray;
+        display: flex;
+        margin: auto;
+        font-family: Arial;
+        justify-content: center;
+        font-size: 200%;
+    }
+    // #foot{
+    //     color: cadetblue;
+    //     justify-content: center;
+    //     margin: auto;
+    //     display: flex;
+    //     text-align: center;
+    //     width: 100%;
+
+    // }
+    footer{
+        clear: both;
+        display: block;
+        position: absolute;
+        bottom: 100px;
+        display: flex; justify-content: center;
     }
 }
 </style>
