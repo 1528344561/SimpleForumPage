@@ -14,9 +14,14 @@
 </script> -->
 <script setup>
 import LoginVue from '@/views/Login.vue'
+import HomeVue from '@/views/home.vue'
+import TestVue from '@/views/test.vue'
+import router from './router';
 </script>
+
 <template>
-  <LoginVue/>
+  <!-- <LoginVue/> -->
+  <!-- <HomeVue/> -->
   <!-- html-->
   <!-- <h1>SimpleForum</h1> -->
   <!-- <p></p> -->
@@ -24,6 +29,8 @@ import LoginVue from '@/views/Login.vue'
     <!-- <h2>{{ msg }}</h2> -->
   <!-- </div> -->
 
+
+    <router-view></router-view>
   
 </template>
 

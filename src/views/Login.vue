@@ -1,8 +1,13 @@
 <script setup>
 import { User, Lock } from '@element-plus/icons-vue'
 import { ref } from 'vue'
+import { ElMessage } from 'element-plus';
+import { useTokenStore } from '@/stores/token.js';
+import {useRouter} from 'vue-router'
 //控制注册与登录表单的显示， 默认显示注册
 const isRegister = ref(false)
+const tokenStore = useTokenStore();
+const router = useRouter();
 //定义数据模型
 const registerData = ref({
     account:'',
@@ -36,7 +41,7 @@ const rules={
     ]
 }
 
-import {userRegisterService} from '@/api/user.js'
+import {userRegisterService,userLoginService} from '@/api/user.js'
 //注册接口
 const register = async()=>{
     if(registerData.value.password!==registerData.value.rePassword){
@@ -45,17 +50,47 @@ const register = async()=>{
     else{
     
         let result = await userRegisterService(registerData.value);
-        if(result.code===0){
-            //success
-            alert('注册成功'+result.message)
-        }else{
-            alert(result.message)
-        }
+
+
+        // if(result.code===0){
+        //     alert(result.msg?result.msg:'注册成功')
+        // }else{
+        //     alert(result.msg?result.msg:'注册失败')
+        // }
+
+        // alert(result.msg?result.msg:'注册成功')
+        ElMessage.success(result.data.message?result.data.message:'注册成功')
+
+    }
+}
+
+const login =async()=>{
+    let result = await userLoginService(registerData.value);
+    // if(result.code===0){
+    //     alert(result.msg?result.msg:'登录成功')
+    // }else{
+    //     alert(result.msg?result.msg:'登录失败')
+    // }
+    // alert(result.msg?result.msg:'登录失败')
+
+    ElMessage.success(result.data.message?result.data.message:'登录成功')
+
+    tokenStore.setToken(result.data)
+    router.push('/')
+}
+const clearRegisterData =()=>{
+    registerData.value={
+        account:'',
+        password:'',
+        rePassword:''
     }
 }
 </script>
 
 <template>
+    <!-- <div class="rotate-hor-center">
+        SimpleForum
+    </div> -->
     <el-row class="login-page">
         <el-col :span="12" class="bg">
         <div id="capter">
@@ -90,21 +125,21 @@ const register = async()=>{
                     </el-button>
                 </el-form-item>
                 <el-form-item class="flex">
-                    <el-link type="info" :underline="false" @click="isRegister = false">
+                    <el-link type="info" :underline="false" @click="isRegister = false;clearRegisterData()">
                         ← 返回
                     </el-link>
                 </el-form-item>
             </el-form>
             <!-- 登录表单 -->
-            <el-form ref="form" size="large" autocomplete="off" v-else>
+            <el-form ref="form" size="large" autocomplete="off" v-else :model="registerData" :rules="rules">
                 <el-form-item>
                     <h1>登录</h1>
                 </el-form-item>
-                <el-form-item>
-                    <el-input :prefix-icon="User" placeholder="请输入用户名"></el-input>
+                <el-form-item prop="account">
+                    <el-input :prefix-icon="User" placeholder="请输入用户名" v-model="registerData.account"></el-input>
                 </el-form-item>
-                <el-form-item>
-                    <el-input name="password" :prefix-icon="Lock" type="password" placeholder="请输入密码"></el-input>
+                <el-form-item prop="password">
+                    <el-input name="password" :prefix-icon="Lock" type="password" placeholder="请输入密码" v-model="registerData.password"></el-input>
                 </el-form-item>
                 <el-form-item class="flex">
                     <div class="flex">
@@ -114,19 +149,24 @@ const register = async()=>{
                 </el-form-item>
                 <!-- 登录按钮 -->
                 <el-form-item>
-                    <el-button class="button" type="primary" auto-insert-space>登录</el-button>
+                    <el-button class="button" type="primary" auto-insert-space @click="login">登录</el-button>
                 </el-form-item>
                 <el-form-item class="flex">
-                    <el-link type="info" :underline="false" @click="isRegister = true">
+                    <el-link type="info" :underline="false" @click="isRegister = true;clearRegisterData()">
                         注册 →
                     </el-link>
                 </el-form-item>
             </el-form>
         </el-col>
     </el-row>
-    <el-row>
-        
-    </el-row>
+
+
+
+    
+
+
+
+
 
    <div id="foot">
     
@@ -194,6 +234,10 @@ const register = async()=>{
         justify-content: center;
         font-size: 200%;
     }
+
+
+  
+
     // #foot{
     //     color: cadetblue;
     //     justify-content: center;
@@ -209,6 +253,32 @@ const register = async()=>{
         position: absolute;
         bottom: 100px;
         display: flex; justify-content: center;
+    }
+
+    @-webkit-keyframes rotate-hor-center {
+    0% {
+        -webkit-transform: rotateX(0);
+                transform: rotateX(0);
+    }
+    100% {
+        -webkit-transform: rotateX(-360deg);
+                transform: rotateX(-360deg);
+    }
+    }
+    @keyframes rotate-hor-center {
+    0% {
+        -webkit-transform: rotateX(0);
+                transform: rotateX(0);
+    }
+    100% {
+        -webkit-transform: rotateX(-360deg);
+                transform: rotateX(-360deg);
+    }
+    }
+
+    .rotate-hor-center {
+	-webkit-animation: rotate-hor-center 0.5s cubic-bezier(0.455, 0.030, 0.515, 0.955) both;
+	        animation: rotate-hor-center 0.5s cubic-bezier(0.455, 0.030, 0.515, 0.955) both;
     }
 }
 </style>
