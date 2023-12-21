@@ -13,22 +13,32 @@ const barList = async()=>{
     bars.value = result.data;
     // alert(bars.value[1].barPic)
 }
+const barInputValue = ref('')
 barList();
 const handleRowClick = (row)=>{
     const barData = JSON.stringify(row)
     const barName = JSON.parse(barData).barName
     alert('你单击了 '+barName+'吧 诶...')
 }
+const handleGotoBar=()=>{
+    // var inputValue = document.getElementById("kw1").value;
+    alert(barInputValue.value)
+}
+
 </script>
+
 
 <template>
     <div class="header_search">
         <div class="head_inner">
             <a rel="noopener" title="到贴吧首页" href="/" class="search_logo" style=""></a>
         </div>
-        <input class="search_ipt search_inp_border j_search_input tb_header_search_input" name="kw1" value="" type="text" autocomplete="off" size="42" tabindex="1" id="wd1" maxlength="100" x-webkit-grammar="builtin:search" x-webkit-speech="true">
-        <div class="search_btn">
-            <a rel="noopener"  href="#"  >进入贴吧</a>
+        <input class="search_ipt search_inp_border j_search_input tb_header_search_input" 
+        name="kw1" value="" type="text" autocomplete="off" size="42" tabindex="1" 
+        id="wd1" maxlength="100" x-webkit-grammar="builtin:search" x-webkit-speech="true"
+        v-model="barInputValue" >
+        <div class="search_btn"  @click="handleGotoBar">
+            <a rel="noopener"  href="#" >进入贴吧</a>
         </div>
 
     </div>
@@ -166,8 +176,11 @@ const handleRowClick = (row)=>{
     margin-right: auto;
   }
   .header_search{
+    margin-top: 80px;
     display: grid;
-    grid-template-columns: repeat(3, 1fr);  /* 三列等分 */
+    /* grid-template-columns: 200px,300px,70px; */
+    grid-template-columns: repeat(3, 1fr);  
+    /* 三列等分 */
   /* grid-gap: 10px;   */
   }
   .head_inner .search_logo {
@@ -222,4 +235,5 @@ a {
     font-family: STHeiti,"Microsoft Yahei","Microsoft YaHei",Arial,sans-serif;
 }
 </style>
+
 
