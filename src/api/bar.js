@@ -19,12 +19,8 @@ export const barListService = ()=>{
     return request.get('/bar/list')
 
 }
-export const userLoginService = (loginData)=>{
-    const params = new URLSearchParams();
-    for(let key in loginData){
-        params.append(key,loginData[key]);
-    }
-    return request.post('/user/login', params)
+export const barAddService =(newBar)=>{
+    return request.post('/bar/add',newBar)
 }
 export const barGotoService = (barName)=>{
     // const params = new URL

@@ -6,9 +6,10 @@ import {barGotoService} from '@/api/bar.js'
 
 
 
-const bars = ref([
+const bars = ref(
+    []
 
-])
+)
 const selectBar = ref([
 
 ])
