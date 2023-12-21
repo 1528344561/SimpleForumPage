@@ -1,10 +1,15 @@
 <script setup>
 import {ref}from'vue'
 import {barListService}from '@/api/bar.js'
+import {useRouter} from 'vue-router'
+import {barGotoService} from '@/api/bar.js'
 
 
 
 const bars = ref([
+
+])
+const selectBar = ref([
 
 ])
 const barList = async()=>{
@@ -13,20 +18,43 @@ const barList = async()=>{
     bars.value = result.data;
     // alert(bars.value[1].barPic)
 }
-const barInputValue = ref('')
 barList();
+const barInputValue = ref('')
 const handleRowClick = (row)=>{
     const barData = JSON.stringify(row)
     const barName = JSON.parse(barData).barName
-    alert('你单击了 '+barName+'吧 诶...')
+    const route = useRouter()
+    selectBar.value = barName
+
+    
+    // alert('你单击了 '+barName+'吧 诶...')
+
+    // router.push('/bar')
+    // barGotoService(barName)
 }
-const handleGotoBar=()=>{
+const router = useRouter()
+
+
+const handleGotoBar=async()=>{
     // var inputValue = document.getElementById("kw1").value;
-    alert(barInputValue.value)
+    // alert(barInputValue.value)
+
+    // router.push('/bar/'+barInputValue.value)
 }
 
 </script>
 
+<script>
+export default {
+  methods: {
+    redirectToBar(barName) {
+      const encodedBarName = encodeURIComponent(barName);
+      const url = `http://192.168.214.198/bar?barName=${encodedBarName}`;
+      this.$router.push(url);
+    }
+  }
+}
+</script>
 
 <template>
     <div class="header_search">
@@ -46,18 +74,23 @@ const handleGotoBar=()=>{
     <div class="forum_rcmd">
         <div class="barShow">
         <el-main class="page-container">
+
         <el-table :data="bars" style="width: 100%" show-header="false" @row-click="handleRowClick">
-        <el-table-column
-        prop="barName"
-        label=""
-        width="250">
+        
+            <el-table-column
+                prop="barName"
+                label=""
+                width="250">
+        
         <!-- <div>
             <img :src="bars.barPic">
             <p>{{ bars.barName }}</p>
 
         </div> -->
         <template #default="{ row }">
-      <div class="row-container">
+            <div class="row-container">
+        
+
         <div class="barPic">
             <img :src="row.barPic" alt="Bar Image" width="60" height="60" object-fit="fill">
         </div>

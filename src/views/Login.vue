@@ -2,6 +2,8 @@
 import { User, Lock } from '@element-plus/icons-vue'
 import { ref } from 'vue'
 import { ElMessage } from 'element-plus';
+import {userRegisterService,userLoginService} from '@/api/user.js'
+
 import { useTokenStore } from '@/stores/token.js';
 import {useRouter} from 'vue-router'
 //控制注册与登录表单的显示， 默认显示注册
@@ -41,7 +43,6 @@ const rules={
     ]
 }
 
-import {userRegisterService,userLoginService} from '@/api/user.js'
 //注册接口
 const register = async()=>{
     if(registerData.value.password!==registerData.value.rePassword){

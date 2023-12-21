@@ -16,7 +16,7 @@
 import LoginVue from '@/views/Login.vue'
 import HomeVue from '@/views/home.vue'
 import TestVue from '@/views/test.vue'
-import router from './router';
+import router from '@/router/index.js'
 </script>
 
 <template>
