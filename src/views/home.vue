@@ -83,7 +83,6 @@ export default {
         <div class="search_btn"  @click="handleGotoBar">
             <a rel="noopener"  href="#" >进入贴吧</a>
         </div>
-
     </div>
 
     <div class="forum_rcmd">
@@ -165,7 +164,6 @@ export default {
 </template>
 <style>
 .page-container{
-    
 }
 
 
@@ -221,7 +219,7 @@ export default {
     display: flex;
     text-align: center;
     margin-left: auto;
-    margin-right: auto;
+    margin-right: 0;
   }
   .header_search{
     margin-top: 80px;
@@ -281,6 +279,7 @@ a {
     border: 1px solid rgba(230,230,230,1);
     box-sizing: border-box;
     font-family: STHeiti,"Microsoft Yahei","Microsoft YaHei",Arial,sans-serif;
+    margin:0 auto;
 }
 </style>
 
