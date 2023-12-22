@@ -3,6 +3,7 @@
 import {ref}from'vue'
 import {barListService}from '@/api/bar.js'
 import {barFindByBarNameService} from '@/api/bar.js'
+import {PostListByBarIdService} from '@/api/post.js'
 import {useRouter} from 'vue-router'
 import {onMounted} from 'vue'
 import {barGotoService} from '@/api/bar.js'
@@ -10,7 +11,11 @@ const bar = ref({
     barName:'',
     barIntroduction:'',
     barPic:'',
+    barId:0,
 })
+const posts = ref([
+
+])
 // alert(this.$route.query)
 // const router = useRouter()
 
@@ -27,7 +32,11 @@ const setup = async () => {
     // bar.value =
     let result =  await barFindByBarNameService(bar.value.barName)
     bar.value = result.data
-    console.log(bar.value)
+    // console.log(bar.value)
+    // alert(bar.value.barId)
+    let p = await PostListByBarIdService(bar.value.barId)
+    posts.value = p.data
+    console.log(p.data)
     // console.log(bar.value)
     // alert(bar.value)
     // console.log(await barFindByBarNameService(bar.value.barName).message)
@@ -54,6 +63,54 @@ onMounted(() => {
         </div>
     </div>
 
+
+
+
+
+
+    <div class="forum_rcmd">
+        <div class="barShow">
+        <el-main class="page-container">
+
+        <el-table :data="posts" style="width: 100%" show-header="false" @row-click="handleRowClick">
+        
+            <el-table-column
+                prop="postTitle"
+                label=""
+                width="250">
+        
+        <!-- <div>
+            <img :src="bars.barPic">
+            <p>{{ bars.barName }}</p>
+
+        </div> -->
+        <template #default="{ row }">
+            <div class="row-container">
+        
+
+        <div class="post">
+            <!-- <img :src="row.barPic" alt="Bar Image" width="60" height="60" object-fit="fill"> -->
+        </div>
+        <div class="postTitle">
+            <div class="postTitle">
+                {{ row.postTitle }}
+            </div>
+            <div class="barPeopleNum">
+
+            </div>
+        </div>
+      </div>
+    </template>
+      </el-table-column>
+      <el-table-column
+        prop="postContent"
+        label=""
+        width="180">
+      </el-table-column>
+    </el-table>
+        </el-main>
+        </div>
+    </div>
 
 </template>
 
