@@ -40,6 +40,7 @@ const setup = async () => {
     let p = await PostListByBarIdService(bar.value.barId)
     posts.value = p.data
     console.log(p.data)
+    console.log(posts.value.length)
     // console.log(bar.value)
     // alert(bar.value)
     // console.log(await barFindByBarNameService(bar.value.barName).message)
@@ -82,13 +83,28 @@ onMounted(() => {
     <!-- {{ this.$route.query }}
     {{ this.$route.query.barName }} -->
     <div class="barInfo">
-        <div class="barAvatar">
+        <div class="barAvatar_bord">
+        <div class="barAvatar" >
             <img :src="bar.barPic">
+        </div>
+        </div>
 
             <div class="barProfile">
-            <span >{{ bar.barName }}吧</span>
-            <span >{{ bar.barIntroduction }}</span>
-        </div>
+                <div class="barName">
+                    <span >{{ bar.barName }}吧</span>
+                </div>
+            <div class="barIntroduction">
+                <span >{{ bar.barIntroduction }}</span>
+            </div>
+
+            <div class="barMoreInfo">
+                <div class="number_label">
+                    <span>贴子:</span>
+                </div>
+                <div class="number_num">
+                    <span>{{ posts.length }}</span>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -144,10 +160,52 @@ onMounted(() => {
 </template>
 
 <style lang="scss" scoped>
+.barAvatar_bord{
+    padding: 2px;
+    border: solid 1px rgba(0,0,0,.1);
+    background: #fff;
+    left: 0;
+    top: 0;
+    margin: 15px;
+}
+.barAvatar{
+    padding: 4px;
+    overflow: hidden;
+    background: #FFF;
+    z-index: 9;
+    top: auto;
+    bottom: -5px;
+    border-color: #DADCDF;
+    margin: 20px;
+}
 .barInfo{
     display: flex;
     flex-direction: row; 
     align-items: center;
+}
+.barName{
+    font-size: 22px;
+}
+.barMoreInfo{
+    font-size: 12px;
+}
+.number_label {
+    color: #AAA;
+}
+.number_num{
+    color: #ff7f3e;
+    font-family: Arial;
+}
+.barIntroduction{
+    color: #4c4c4c;
+    font-size: 14px;
+    float: left;
+    padding-right: 30px;
+    position: relative;
+    max-width: 280px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
 .barProfile{
     display: flex;
