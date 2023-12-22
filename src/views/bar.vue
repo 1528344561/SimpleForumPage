@@ -13,6 +13,9 @@ const bar = ref({
     barPic:'',
     barId:0,
 })
+const post = ref({
+    
+})
 const posts = ref([
 
 ])
@@ -43,6 +46,32 @@ const setup = async () => {
     // console.log(bar.value)
 };
 
+const handleRowClick = (row)=>{
+    const postData = JSON.stringify(row)
+    const postTitle = decodeURIComponent(JSON.parse(postData).postTitle)
+    // selectBar.value = postName
+    console.log()
+    alert(postTitle)
+    // router.push({
+    // path:'/bar',
+    // query:{
+    //   barName:barName
+    //   }
+    // })
+    //   alert(barName)
+    // router.push({
+    //   path:'/bar',
+    //   params:{barName:barName},
+    // })
+
+      // router.push('/bar/'+selectBar.value)
+
+
+    // alert('你单击了 '+barName+'吧 诶...')
+
+    // router.push('/bar')
+    // barGotoService(barName)
+}
 onMounted(() => {
   setup();
 });
