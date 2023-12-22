@@ -22,6 +22,24 @@ export const barListService = ()=>{
 export const barAddService =(newBar)=>{
     return request.post('/bar/add',newBar)
 }
+export const barFindByBarNameService = (barName)=>{
+
+
+    // return request.get('/bar/barInfo',{
+    //     barName:barName
+    // })
+
+    // const params = new URLSearchParams();
+    // params.append(barName,barName)
+    // return request.get('/bar/barInfo',params)
+
+    return request.get('/bar/barInfo',{
+        params:{
+            barName:barName
+        }
+    })
+
+}
 export const barGotoService = (barName)=>{
     // const params = new URL
     router.push('/bar/'+barName)

@@ -20,20 +20,34 @@ const barList = async()=>{
     // alert(bars.value[1].barPic)
 }
 barList();
+const router = useRouter()
 const barInputValue = ref('')
 const handleRowClick = (row)=>{
     const barData = JSON.stringify(row)
-    const barName = JSON.parse(barData).barName
-    const route = useRouter()
+    const barName = decodeURIComponent(JSON.parse(barData).barName)
     selectBar.value = barName
-
     
+    router.push({
+    path:'/bar',
+    query:{
+      barName:barName
+      }
+    })
+    //   alert(barName)
+    // router.push({
+    //   path:'/bar',
+    //   params:{barName:barName},
+    // })
+
+      // router.push('/bar/'+selectBar.value)
+
+
     // alert('你单击了 '+barName+'吧 诶...')
 
     // router.push('/bar')
     // barGotoService(barName)
 }
-const router = useRouter()
+
 
 
 const handleGotoBar=async()=>{
