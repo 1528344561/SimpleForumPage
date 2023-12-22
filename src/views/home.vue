@@ -68,7 +68,6 @@ export default {
       this.$router.push(url);
     }
   }
-  
 }
 </script>
 
