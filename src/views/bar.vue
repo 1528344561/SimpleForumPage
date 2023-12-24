@@ -166,7 +166,7 @@ onMounted(() => {
     background: #fff;
     left: 0;
     top: 0;
-    margin: 15px;
+    margin: 10px;
 }
 .barAvatar{
     padding: 4px;
@@ -211,8 +211,11 @@ onMounted(() => {
     display: flex;
     justify-content: flex-start;
     margin-left: 10px;
+    margin-right: 0;
 }
 .barName{
     font-weight: 10px;
+    margin-right: 0;
+    margin-top: 3px;
 }
 </style>
