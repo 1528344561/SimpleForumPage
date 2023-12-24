@@ -17,6 +17,8 @@ import LoginVue from '@/views/Login.vue'
 import HomeVue from '@/views/home.vue'
 import TestVue from '@/views/test.vue'
 import router from '@/router/index.js'
+import TopVue from '@/components/PageTop.vue'
+
 </script>
 
 <template>
@@ -28,7 +30,9 @@ import router from '@/router/index.js'
   <!-- <div id="app"> -->
     <!-- <h2>{{ msg }}</h2> -->
   <!-- </div> -->
-
+    <!-- <header v-title data-title="111">
+    </header> -->
+  <TopVue/>
 
     <router-view></router-view>
   

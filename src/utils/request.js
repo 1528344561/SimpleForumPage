@@ -5,6 +5,11 @@ import axios from 'axios';
 
 import { ElMessage } from 'element-plus';
 import { useTokenStore } from '@/stores/token';
+// import {useRouter} from 'vue-router'
+// const router = useRouter();
+//不能像上面这样写
+import router from '@/router'
+
 //定义一个变量,记录公共的前缀  ,  baseURL
 const baseURL = '/api';
 const instance = axios.create({baseURL})
@@ -45,8 +50,17 @@ instance.interceptors.response.use(
         return Promise.reject(result.data)
     },
     err=>{
-        // alert(result.data.message?result.data.message:'服务异常');
-        ElMessage.error(result.data.message?result.data.message:'服务异常')
+        //判断响应状态码是不是401,是401就跳转到登录
+        if(err.response.status===401){
+            ElMessage.error('请先登录')
+            router.push('/login')
+        }else{
+            // ElMessage
+            // alert(result.data.message?result.data.message:'服务异常');
+            ElMessage.error(result.data.message?result.data.message:'服务异常')
+        
+        }
+
         return Promise.reject(err);//异步的状态转化成失败的状态
     }
 )

@@ -18,3 +18,12 @@ export const userLoginService = (loginData)=>{
     }
     return request.post('/user/login', params)
 }
+
+export const userFindByIdService = (userId)=>{
+    //若为空,返回的是当前用户
+    return request.get('/user/userInfo',{
+        params:{
+            userId:userId
+        }
+    })
+}

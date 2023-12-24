@@ -15,3 +15,12 @@ export const PostListByBarIdService = (barId)=>{
     })
 
 }
+export const PostFindByPostIdService = (postId)=>{
+
+    return request.get('/post/postInfo',{
+        params:{
+            postId:postId
+        }
+    })
+
+}

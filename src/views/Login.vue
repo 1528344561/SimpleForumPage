@@ -2,10 +2,10 @@
 import { User, Lock } from '@element-plus/icons-vue'
 import { ref } from 'vue'
 import { ElMessage } from 'element-plus';
-import {userRegisterService,userLoginService} from '@/api/user.js'
-
+import {userRegisterService,userLoginService,userFindByIdService} from '@/api/user.js'
 import { useTokenStore } from '@/stores/token.js';
-import {useRouter} from 'vue-router'
+import {useRouter} from 'vue-router';
+import {useUserInfoStore} from '@/stores/userInfo.js';
 //控制注册与登录表单的显示， 默认显示注册
 const isRegister = ref(false)
 const tokenStore = useTokenStore();
@@ -16,6 +16,7 @@ const registerData = ref({
     password:'',
     rePassword:''
 })
+
 //校验密码函数
 const checkRePassword =(rule,value,callback)=>{
     if(value===''){
@@ -64,6 +65,7 @@ const register = async()=>{
 
     }
 }
+const userInfoStore = useUserInfoStore();
 
 const login =async()=>{
     let result = await userLoginService(registerData.value);
@@ -77,14 +79,33 @@ const login =async()=>{
     ElMessage.success(result.data.message?result.data.message:'登录成功')
 
     tokenStore.setToken(result.data)
+    // alert(result.data)
+    let u = await userFindByIdService()
+    console.log(u.data)
+    userInfoStore.setInfo(u.data)
     router.push('/')
 }
+
 const clearRegisterData =()=>{
     registerData.value={
         account:'',
         password:'',
         rePassword:''
     }
+}
+const items=ref([
+    '/src/assets/show_0.png',
+    '/src/assets/show_1.png',
+    '/src/assets/show_2.png'
+
+])
+const setup=()=>{
+    // items.push()
+
+}
+setup()
+const handleGotoHome=async()=>{
+    router.push('/')
 }
 </script>
 
@@ -94,11 +115,22 @@ const clearRegisterData =()=>{
     </div> -->
     <el-row class="login-page">
         <el-col :span="12" class="bg">
-        <div id="capter">
+        <div id="capter" @click="handleGotoHome" title="前往贴吧首页">
             <h1>SimpleForum</h1>
         </div>
-        <div id = "introduction">
-            <h3>We feel excited for your coming!</h3>
+        <div class= "introduction">
+            <div style="margin-left: 120px;">
+              <h3>We feel excited for your coming!</h3>
+            </div>
+            <div class="block">
+                <span class="demonstration" style="margin-left: 180px;">谨此以纪念 百度贴吧 辉煌的20年</span>
+                <el-carousel height="450px">
+                <el-carousel-item v-for="item in items">
+                    <!-- <h3 class="small">{{ item }}</h3> -->
+                    <img :src="item" style="width:100% ;height: 100%;object-fit:fill">
+                </el-carousel-item>
+                </el-carousel>
+            </div>
         </div>
         </el-col>
         <el-col :span="6" :offset="3" class="form">
@@ -188,9 +220,20 @@ const clearRegisterData =()=>{
         //     url('@/assets/login_bg.jpg') no-repeat center / cover;
 
         // background: url('@/assets/logo3.png') no-repeat 60% center / 240px auto;
-        border-radius: 0 20px 20px 0;
+        border-radius: 0 10px 10px 0;
     }
+    .introduction{
+        display: flex;
+        flex-direction: column;
 
+        margin-left: 50px;
+        color:darkgray;
+        display: flex;
+        // margin: auto;
+        font-family: Arial;
+        justify-content: center;
+        font-size: 200%;
+    }
     .form {
         display: flex;
         flex-direction: column;
@@ -220,20 +263,13 @@ const clearRegisterData =()=>{
         font-size: 60px;
         font-weight: 80px;
         font-family: Cambria;
+        cursor: pointer;
     }
     #websitename{
         color:cornflowerblue;
         font-family: Cambria;
         font-size: 200%;
         font-weight: 200%;
-    }
-    #introduction{
-        color:darkgray;
-        display: flex;
-        margin: auto;
-        font-family: Arial;
-        justify-content: center;
-        font-size: 200%;
     }
 
 
@@ -256,30 +292,5 @@ const clearRegisterData =()=>{
         display: flex; justify-content: center;
     }
 
-    @-webkit-keyframes rotate-hor-center {
-    0% {
-        -webkit-transform: rotateX(0);
-                transform: rotateX(0);
-    }
-    100% {
-        -webkit-transform: rotateX(-360deg);
-                transform: rotateX(-360deg);
-    }
-    }
-    @keyframes rotate-hor-center {
-    0% {
-        -webkit-transform: rotateX(0);
-                transform: rotateX(0);
-    }
-    100% {
-        -webkit-transform: rotateX(-360deg);
-                transform: rotateX(-360deg);
-    }
-    }
-
-    .rotate-hor-center {
-	-webkit-animation: rotate-hor-center 0.5s cubic-bezier(0.455, 0.030, 0.515, 0.955) both;
-	        animation: rotate-hor-center 0.5s cubic-bezier(0.455, 0.030, 0.515, 0.955) both;
-    }
 }
 </style>
