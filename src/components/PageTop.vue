@@ -30,11 +30,11 @@ const handleGotoBar=async()=>{
                 <el-header height="20px"   >
                     <div class="header_button">
                     <div>
-                        <a href="/login" @click="userInfoStore.removeInfo()">登录</a>
-                    </div>
-                        
-                    <div>
                         <a :href="'/user/'+userInfoStore.info.id">{{ userInfoStore.info.nickname }}</a>
+                    </div>
+                    <div>
+                        <a v-if="!userInfoStore.info.id" href="/login" @click="userInfoStore.removeInfo()">登录</a>
+                        <a v-else href="/login" @click="userInfoStore.removeInfo()">退出 </a>
                     </div>
                     </div>  
                 </el-header>
@@ -87,9 +87,12 @@ const handleGotoBar=async()=>{
 .u_menu_item{
         display: flex;
         flex-direction: row;
+        margin-left: 80%;
         justify-content: space-between;
         align-items: center;
+        /* margin-left: 10px; */
         .header_button{
+            margin-top: 4px;
             width: 120px;
             display: flex;
             justify-content: space-between;
