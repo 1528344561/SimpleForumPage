@@ -4,18 +4,33 @@ import {barListService}from '@/api/bar.js'
 import {useRouter} from 'vue-router'
 import {ElMessage} from 'element-plus'
 import {useUserInfoStore} from '@/stores/userInfo.js'
+import {useTokenStore} from '@/stores/token.js'
 import {getPostNumberByBarIdService} from '@/api/post.js'
+import {barAddService} from '@/api/bar.js'
+import { QuillEditor } from '@vueup/vue-quill'
+import {Plus} from '@element-plus/icons-vue'
+import '@vueup/vue-quill/dist/vue-quill.snow.css'
+
 // import {userInfoStore} from '@/views/Login.vue'
 import {
     Edit,
     Delete,
     Message    
 } from '@element-plus/icons-vue'
+const visibleDrawer = ref(false)
 
 const bars = ref(
     []
 
 )
+const barModel = ref({
+  barName:'',
+  barIntroduction:'',
+  barPic:'',
+  createUser:{
+    type:Number
+  },
+})
 const selectBar = ref([
 
 ])
@@ -34,6 +49,7 @@ const barList = async()=>{
 barList();
 const router = useRouter()
 const userInfoStore = useUserInfoStore()
+const tokenStore = useTokenStore()
 const barInputValue = ref('')
 
 //单击跳转贴吧
@@ -63,8 +79,18 @@ const handleRowClick = (row)=>{
     // barGotoService(barName)
 }
 
+const uploadSuccess = (result)=>{
+  barModel.value.barPic = result.data
+  console.log(result.data)
+}
 
-
+const addBar =async()=>{
+  barModel.value.createUser = userInfoStore.info.id
+  console.log(barModel.value)
+  let result =await barAddService(barModel.value)
+  console.log(result.data)
+  // ElMessage.success(result.message?result.message:'创建成功')
+}
 // alert(userInfoStore.info.id)
 
 </script>
@@ -72,7 +98,7 @@ const handleRowClick = (row)=>{
 
 <template>
 
-  <div class="body">
+  <div class="home-body">
 
 
     <!-- 贴吧列表框架 -->
@@ -95,43 +121,42 @@ const handleRowClick = (row)=>{
         </div>
         <div class="barShow">
           <div class="Title">
-            <img src="https://tb3.bdstatic.com/public/img/hot.ded08c52.png" class="hot_icon">
-            热门吧
+              <img src="https://tb3.bdstatic.com/public/img/hot.ded08c52.png" class="hot_icon">热门吧
           </div>
             <el-main class="page-container">
 
               <el-table :data="bars" style="cursor: pointer;" show-header=false @row-click="handleRowClick">
 
-              <el-table-column prop="barName" label="" width="250">
+                <el-table-column prop="barName" label="" width="250">
 
-              <!-- <div>
-              <img :src="bars.barPic">
-              <p>{{ bars.barName }}</p>
+                <!-- <div>
+                <img :src="bars.barPic">
+                <p>{{ bars.barName }}</p>
 
-              </div> -->
-              <template #default="{ row }">
-                <div class="row-container">
+                </div> -->
+                <template #default="{ row }">
+                  <div class="row-container">
 
 
-                  <div class="barPic">
-                      <img :src="row.barPic" alt="Bar Image" width="60" height="60" object-fit="fill">
+                    <div class="barPic">
+                        <img :src="row.barPic" alt="Bar Image" width="60" height="60" object-fit="fill">
+                    </div>
+                    <div class="barInfo">
+                        <div class="barName">
+                            {{ row.barName }}
+                        </div>
+                        <div class="barPeopleNum">
+                            <span>1</span>
+                        </div>
+                        <div class="barCommentNum">
+                          <span>{{ row.postNum }}</span>
+                        </div>
+                    </div>
                   </div>
-                  <div class="barInfo">
-                      <div class="barName">
-                          {{ row.barName }}
-                      </div>
-                      <div class="barPeopleNum">
-                          <span>1</span>
-                      </div>
-                      <div class="barCommentNum">
-                        <span>{{ row.postNum }}</span>
-                      </div>
-                  </div>
-                </div>
-              </template>
-              </el-table-column>
-              <el-table-column prop="barIntroduction" label="" width="350">
-              </el-table-column>
+                </template>
+                </el-table-column>
+                <el-table-column prop="barIntroduction" label="" width="350">
+                </el-table-column>
               </el-table>
 
 
@@ -169,10 +194,57 @@ const handleRowClick = (row)=>{
             </el-main>
           </div>
         <div class="right-buttons">
-            <el-button type="primary" round :icon="Edit">
+            <el-button type="primary" round :icon="Edit" @click="visibleDrawer=true">
                 创建贴吧
             </el-button>
         </div>
+
+        <el-drawer v-model="visibleDrawer" direction="rtl" size="50%">
+            <!-- 添加贴吧表单 -->
+            <el-form :model="barModel" label-width="100px" >
+                <el-form-item label="贴吧名称" >
+                    <el-input v-model="barModel.barName" placeholder="请输入标题"></el-input>
+                </el-form-item>
+                <!-- <el-form-item label="贴吧分类">
+                    <el-select placeholder="请选择" v-model="barModel.postId">
+                        <el-option v-for="c in categorys" :key="c.id" :label="c.categoryName" :value="c.id">
+                        </el-option>
+                    </el-select>
+                </el-form-item> -->
+                <el-form-item label="贴吧封面">
+                    <!-- auto-upload:设置是否自动上传
+                    action:设置服务器接口路径
+                    name:设置上传的文件字段名
+                    headers:设置上传的请求头
+                    on-success:上传成功的回调函数 -->
+                    <el-upload class="avatar-uploader" :auto-upload="true" :show-file-list="false"
+                    action="/api/upload" name="file" :headers="{'Authorization':tokenStore.token}"
+                    :on-success="uploadSuccess">
+                        <img v-if="barModel.barPic" :src="barModel.barPic" class="avatar" />
+                        <el-icon v-else class="avatar-uploader-icon">
+                            <Plus />
+                        </el-icon>
+                    </el-upload>
+                </el-form-item>
+                <el-form-item label="贴吧内容">
+                  <el-input v-model="barModel.barIntroduction"  type="textarea" placeholder="请输入贴吧介绍" autosize=true></el-input>
+                    <!-- <div class="editor">
+
+                        <quill-editor
+                            theme="snow"
+                            v-model:content="barModel.barIntroduction"
+                            contentType="html">
+                        </quill-editor>
+
+                    </div> -->
+                </el-form-item>
+                <el-form-item>
+                    <el-button type="primary" @click="addBar">创建</el-button>
+                    <!-- <el-button type="info">草稿</el-button> -->
+                </el-form-item>
+            </el-form>
+        </el-drawer>
+
     </div>
   </div>    
 
@@ -180,15 +252,18 @@ const handleRowClick = (row)=>{
 <style>
 .page-container{
 }
-.body{
+.home-body{
   /* background-color: #fff; */
 }
 .forum_rcmd{
   display: flex;
   flex-direction: row;
-  /* width: 600px; */
-  /* background-color: #000; */
-  /* margin: auto; */
+  padding: 16px 16px 0;
+  width: 780px;
+  background: #fff;
+  box-sizing: border-box;
+  font-family: STHeiti,"Microsoft Yahei","Microsoft YaHei",Arial,sans-serif;
+  margin:0 auto;
   .frame-left{
     border-top: 1px solid #DCDCDC;
     border-bottom: 1px solid #DCDCDC;
@@ -212,21 +287,6 @@ const handleRowClick = (row)=>{
       }
     }
   }
-}
-.text {
-    font-size: 14px;
-  }
-
-  .item {
-    padding: 18px 0;
-  }
-  .box-card {
-    width: 480px;
-  }
-  .center{
-    margin-left: auto;
-    /* margin: auto; */
-  }
   .barShow{
     /* transform: translateX(20px); */
     /* margin-left: 200px; */
@@ -246,8 +306,29 @@ const handleRowClick = (row)=>{
       }
     }
     border: 1px solid rgba(230,230,230,1);
-
   }
+  .right-buttons{
+  position: fixed;
+  margin-top: 100px;
+  margin-left: 900px;
+  }
+
+}
+.text {
+    font-size: 14px;
+}
+
+  .item {
+    padding: 18px 0;
+  }
+  .box-card {
+    width: 480px;
+  }
+  .center{
+    margin-left: auto;
+    /* margin: auto; */
+  }
+
   .barPic{
     object-fit: contain;
     width: 60px;
@@ -342,14 +423,6 @@ const handleRowClick = (row)=>{
   color: white;  /* 设置字体颜色为白色 */
   font-family: Arial, sans-serif;  /* 设置字体为 Arial，如果 Arial 不可用，使用备选的 sans-serif 字体 */
 }
-.forum_rcmd {
-    padding: 16px 16px 0;
-    width: 780px;
-    background: #fff;
-    box-sizing: border-box;
-    font-family: STHeiti,"Microsoft Yahei","Microsoft YaHei",Arial,sans-serif;
-    margin:0 auto;
-}
 .barInfo{
     margin-left: 10px;
     display: flex;
@@ -377,10 +450,46 @@ const handleRowClick = (row)=>{
   background-image: url(https://tb3.bdstatic.com/public/img/comment.a6617125.png?t=1684152777240);
 }
 
-.right-buttons{
-  position: fixed;
-  margin-top: 100px;
-  margin-left: 900px;
+
+
+.avatar-uploader {
+    :deep() {
+        .avatar {
+            width: 178px;
+            height: 178px;
+            display: block;
+        }
+
+
+
+
+
+
+      }
+  }
+  .editor {
+    width: 100%;
+    :deep(.ql-editor) {
+      min-height: 200px;
+    }
+}
+.el-upload:hover {
+            border-color: var(--el-color-primary);
+}
+.el-upload {
+            border: 1px dashed var(--el-border-color);
+            border-radius: 6px;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: var(--el-transition-duration-fast);
+        }
+.el-icon.avatar-uploader-icon {
+            font-size: 28px;
+            color: #8c939d;
+            width: 178px;
+            height: 178px;
+            text-align: center;
 }
 </style>
 

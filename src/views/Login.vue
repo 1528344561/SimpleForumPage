@@ -47,7 +47,7 @@ const rules={
 //注册接口
 const register = async()=>{
     if(registerData.value.password!==registerData.value.rePassword){
-        
+        ElMessage.error('两次输入的密码不同')
     }
     else{
     
@@ -61,7 +61,8 @@ const register = async()=>{
         // }
 
         // alert(result.msg?result.msg:'注册成功')
-        ElMessage.success(result.data.message?result.data.message:'注册成功')
+        ElMessage.success(result.message?result.message:'注册成功')
+        isRegister.value=false
 
     }
 }

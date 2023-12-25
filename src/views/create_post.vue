@@ -49,45 +49,7 @@ onMounted(() => {
         <el-button type="primary" round @click="visibleDrawer=true" :icon="Edit" >回帖</el-button>
         <!-- <el-button type="primary" icon="el-icon-edit"></el-button> -->
     </div>
-    {{ $route.postId }}
-            <el-drawer v-model="visibleDrawer" postTitle="添加贴子" direction="rtl" size="50%">
-            <!-- 添加贴子表单 -->
-            <el-form :model="postModel" label-width="100px" >
-                <el-form-item label="贴子标题" >
-                    <el-input v-model="postModel.postTitle" placeholder="请输入标题"></el-input>
-                </el-form-item>
-                <el-form-item label="贴子分类">
-                    <el-select placeholder="请选择" v-model="postModel.postId">
-                        <el-option v-for="c in categorys" :key="c.id" :label="c.categoryName" :value="c.id">
-                        </el-option>
-                    </el-select>
-                </el-form-item>
-                <el-form-item label="贴子封面">
 
-                    <el-upload class="avatar-uploader" :auto-upload="false" :show-file-list="false">
-                        <img v-if="postModel.coverImg" :src="postModel.coverImg" class="avatar" />
-                        <el-icon v-else class="avatar-uploader-icon">
-                            <Plus />
-                        </el-icon>
-                    </el-upload>
-                </el-form-item>
-                <el-form-item label="贴子内容">
-                    <div class="editor">
-
-                        <quill-editor
-                            theme="snow"
-                            v-model:content="postModel.postContent"
-                            contentType="html">
-                        </quill-editor>
-
-                    </div>
-                </el-form-item>
-                <el-form-item>
-                    <el-button type="primary">发布</el-button>
-                    <el-button type="info">草稿</el-button>
-                </el-form-item>
-            </el-form>
-        </el-drawer>
 </template>
 
 <style lang="scss" scoped>

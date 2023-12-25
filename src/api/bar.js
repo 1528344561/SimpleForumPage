@@ -45,5 +45,5 @@ export const barGotoService = (barName)=>{
     router.push('/bar/'+barName)
 }
 export const barNameFindByBarId = (barId)=>{
-    
+
 }

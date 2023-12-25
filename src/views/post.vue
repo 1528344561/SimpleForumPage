@@ -3,6 +3,7 @@ import {onMounted} from 'vue'
 import { ref } from 'vue'
 import {useRouter} from 'vue-router'
 import {Plus} from '@element-plus/icons-vue'
+import { QuillEditor } from '@vueup/vue-quill'
 import {useUserInfoStore} from '@/stores/userInfo.js';
 
 import {
@@ -13,7 +14,6 @@ import {
 import DefaultAvatar from '@/assets/default.png'
 
 //富文本编辑器
-import { QuillEditor } from '@vueup/vue-quill'
 import '@vueup/vue-quill/dist/vue-quill.snow.css'
 import {PostFindByPostIdService} from '@/api/post.js'
 import {userFindByIdService} from '@/api/user.js'
@@ -211,6 +211,8 @@ onMounted(() => {
                         </el-option>
                     </el-select>
                 </el-form-item> -->
+
+
                 <!-- <el-form-item label="贴子封面">
 
                     <el-upload class="avatar-uploader" :auto-upload="false" :show-file-list="false">

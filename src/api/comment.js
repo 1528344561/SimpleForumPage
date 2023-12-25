@@ -14,5 +14,4 @@ export const CommentListByPostIdService = (postId)=>{
 }
 export const CommentAddService = (commentData)=>{
     return request.post('/comment/add',commentData)
-
 }
