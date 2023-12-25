@@ -1,9 +1,9 @@
 import request from '@/utils/request.js'
 import {useTokenStore} from '@/stores/token.js'
 import {useRouter} from 'vue-router'
-
+import router from '@/router/index.js'
 //贴吧查询
-const router = useRouter()
+// const router = useRouter()
 
 export const barListService = ()=>{
     const tokenStore = useTokenStore();
@@ -43,4 +43,7 @@ export const barFindByBarNameService = (barName)=>{
 export const barGotoService = (barName)=>{
     // const params = new URL
     router.push('/bar/'+barName)
+}
+export const barNameFindByBarId = (barId)=>{
+    
 }

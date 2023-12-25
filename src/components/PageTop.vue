@@ -50,7 +50,8 @@ const handleGotoBar=async()=>{
         <input class="search_ipt search_inp_border j_search_input tb_header_search_input" 
         name="kw1" value="" type="text" autocomplete="off" size="42" tabindex="1" 
         id="wd1" maxlength="100" x-webkit-grammar="builtin:search" x-webkit-speech="true"
-        v-model="barInputValue" >
+         
+        >
         <div class="search_btn"  @click="handleGotoBar">
             <div class="search_btn_text">
             <span>进入贴吧</span>

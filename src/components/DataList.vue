@@ -1,20 +1,31 @@
 <script setup>
+import {onMounted} from 'vue'
 const props = defineProps({
     dataSource:{
         type:Object
+    },
+    totalCount:{
+        type:Number,
+        default:2
     }
 })
 const emit = defineEmits("loadData")
 const handlePageNoChange = (pageNo)=>{
+    console.log(pageNo)
     props.dataSource.pageNo = pageNo;//分页跳转
     emit("loadData")
 }
-console.log(props.dataSource)
+onMounted(()=>{
+    console.log(props.dataSource)
+})
+
 </script>
 
 <template>
-    <div v-for="item in dataSource">
-        <slot :data="item"></slot>
+        <!-- {{ props.dataSource }} -->
+
+    <div v-for="(item,idx) in dataSource">
+        <slot :data="item" :idx=idx+1></slot>
     </div>
 
     <div class="pagination">
@@ -32,11 +43,13 @@ console.log(props.dataSource)
 
         <el-pagination
             background
-            :total="dataSource.totalCount"
+            :total="totalCount"
             :current-page.sync="dataSource.pageNo"
             layout="prev,pager,next"
             @current-change="handlePageNoChange"
-            style="text-align: right;">
+            style="text-align: right;"
+            
+            >
 
         </el-pagination>
     </div>

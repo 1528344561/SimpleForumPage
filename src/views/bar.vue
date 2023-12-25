@@ -116,42 +116,42 @@ onMounted(() => {
             <div class="barShow">
             <el-main class="page-container">
 
-            <el-table :data="posts" style="width: 100%" show-header="false" @row-click="handleRowClick">
-            
-                <el-table-column
-                    prop="postTitle"
-                    label=""
-                    width="250">
-            
-            <!-- <div>
-                <img :src="bars.barPic">
-                <p>{{ bars.barName }}</p>
+                <el-table :data="posts" style="width: 100%" show-header=false @row-click="handleRowClick">
+                
+                    <el-table-column
+                        prop="postTitle"
+                        label=""
+                        width="250">
+                
+                            <!-- <div>
+                                <img :src="bars.barPic">
+                                <p>{{ bars.barName }}</p>
 
-            </div> -->
-            <template #default="{ row }">
-                <div class="row-container">
-            
+                            </div> -->
+                         <template #default="{ row }">
+                            <div class="row-container">
+                            
 
-            <div class="post">
-                <!-- <img :src="row.barPic" alt="Bar Image" width="60" height="60" object-fit="fill"> -->
-            </div>
-            <div class="postTitle">
-                <div class="postTitle">
-                    {{ row.postTitle }}
-                </div>
-                <div class="barPeopleNum">
+                                <div class="post">
+                                        <!-- <img :src="row.barPic" alt="Bar Image" width="60" height="60" object-fit="fill"> -->
+                                </div>
+                                <div class="postTitle">
+                                    <div class="postTitle">
+                                        {{ row.postTitle }}
+                                    </div>
+                                    <div class="barPeopleNum">
 
-                </div>
-            </div>
-        </div>
-        </template>
-        </el-table-column>
-        <el-table-column
-            prop="postContent"
-            label=""
-            width="180">
-        </el-table-column>
-        </el-table>
+                                </div>
+                            </div>
+                        </div>
+                        </template>
+                    </el-table-column>
+                    <el-table-column
+                        prop="postContent"
+                        label=""
+                        width="180">
+                    </el-table-column>
+                </el-table>
             </el-main>
             </div>
         </div>
@@ -179,6 +179,7 @@ onMounted(() => {
     position: relative;
     left: 300px;
     background-color: white;
+    // margin-left: 130px;
 }
 .barAvatar_bord[data-v-b013e4e0] {
     padding: 2px;

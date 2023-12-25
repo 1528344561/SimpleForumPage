@@ -1,9 +1,7 @@
 import request from '@/utils/request.js'
 import {useTokenStore} from '@/stores/token.js'
-import {useRouter} from 'vue-router'
+import router from '@/router/index.js'
 
-//贴吧查询
-const router = useRouter()
 
 export const PostListByBarIdService = (barId)=>{
 
@@ -13,7 +11,14 @@ export const PostListByBarIdService = (barId)=>{
             Id:barId
         }
     })
-
+}
+export const PostListByUserIdService = (userId)=>{
+    return request.get('/post/list',{
+        params:{
+            type:1,
+            Id:userId
+        }
+    })
 }
 export const PostFindByPostIdService = (postId)=>{
 
@@ -23,4 +28,13 @@ export const PostFindByPostIdService = (postId)=>{
         }
     })
 
+}
+export const getPostNumberByBarIdService = (barId)=>{
+
+    return request.get('/post/postNumber',{
+        params:{
+            type:1,
+            id:barId
+        }
+    })
 }

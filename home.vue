@@ -89,7 +89,7 @@ export default {
         <div class="barShow">
         <el-main class="page-container">
 
-        <el-table :data="bars" style="width: 100%" show-header="false" @row-click="handleRowClick">
+        <el-table :data="bars" style="width: 100%" show-header=false @row-click="handleRowClick">
         
             <el-table-column
                 prop="barName"

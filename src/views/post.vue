@@ -40,11 +40,13 @@ const commentModel = ref({
     commentContent: '',
     lastModifiedTime:'',
     createTime:'',
-    updateTime:''
+    updateTime:'',
+    createUser:0
+
 })
 const userModel = ref({
     nickname:'',
-    user_pic:''
+    user_pic:'',
 })
 const lzModel = ref({
 
@@ -56,6 +58,10 @@ const commentList = async(postId)=>{
     console.log(comments.value)
 }
 const commentAdd = async()=>{
+    if(!userInfoStore.info.id){
+        ElMessage.error("请先登录")
+        return 
+    }
     // console.log(comment.value)
     console.log(commentModel.value.commentContent)
     commentModel.value.postId = postModel.value.postId
@@ -134,11 +140,23 @@ onMounted(() => {
                     </div>
                 </div> -->
                 <div class="Floors">
-                    <div v-for="(item,idx) in comments " class="comment">
+
+
+                    <!-- <div v-for="(item,idx) in comments " class="comment">
                         <CommentListItem :data="item" :idx="idx+1"> 
                         </CommentListItem>
-                    </div>
-                    <!-- <el-table :data="comments" style="width: 100%" show-header="false" @row-click="handleRowClick">
+                    </div> -->
+
+                    <DataList :dataSource="comments">
+                        <template #default="{data,idx}">
+                            <commentListItem :data="data" :idx="idx">
+
+                            </commentListItem>
+                        </template>
+                    </DataList>
+
+
+                    <!-- <el-table :data="comments" style="width: 100%" show-header=false @row-click="handleRowClick">
                         <div class="Author">
                             <div class="Avatar">
                                 <img src="">

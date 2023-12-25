@@ -4,6 +4,7 @@ import {barListService}from '@/api/bar.js'
 import {useRouter} from 'vue-router'
 import {ElMessage} from 'element-plus'
 import {useUserInfoStore} from '@/stores/userInfo.js'
+import {getPostNumberByBarIdService} from '@/api/post.js'
 // import {userInfoStore} from '@/views/Login.vue'
 import {
     Edit,
@@ -18,10 +19,15 @@ const bars = ref(
 const selectBar = ref([
 
 ])
+
 const barList = async()=>{
     let result = await barListService();
 
     bars.value = result.data;
+    for(let i=0;i<bars.value.length;i++){
+      let p = await getPostNumberByBarIdService(bars.value[i].barId)
+      bars.value[i].postNum = p.data
+    }
     console.log(bars.value)
     // alert(bars.value[1].barPic)
 }
@@ -94,39 +100,39 @@ const handleRowClick = (row)=>{
           </div>
             <el-main class="page-container">
 
-            <el-table :data="bars" style="cursor: pointer;" show-header="false" @row-click="handleRowClick">
+              <el-table :data="bars" style="cursor: pointer;" show-header=false @row-click="handleRowClick">
 
-            <el-table-column prop="barName" label="" width="250">
+              <el-table-column prop="barName" label="" width="250">
 
-            <!-- <div>
-            <img :src="bars.barPic">
-            <p>{{ bars.barName }}</p>
+              <!-- <div>
+              <img :src="bars.barPic">
+              <p>{{ bars.barName }}</p>
 
-            </div> -->
-            <template #default="{ row }">
-            <div class="row-container">
+              </div> -->
+              <template #default="{ row }">
+                <div class="row-container">
 
 
-            <div class="barPic">
-                <img :src="row.barPic" alt="Bar Image" width="60" height="60" object-fit="fill">
-            </div>
-            <div class="barInfo">
-                <div class="barName">
-                    {{ row.barName }}
+                  <div class="barPic">
+                      <img :src="row.barPic" alt="Bar Image" width="60" height="60" object-fit="fill">
+                  </div>
+                  <div class="barInfo">
+                      <div class="barName">
+                          {{ row.barName }}
+                      </div>
+                      <div class="barPeopleNum">
+                          <span>1</span>
+                      </div>
+                      <div class="barCommentNum">
+                        <span>{{ row.postNum }}</span>
+                      </div>
+                  </div>
                 </div>
-                <div class="barPeopleNum">
-                    <span>1</span>
-                </div>
-                <div class="barCommentNum">
-                  <span>2</span>
-                </div>
-            </div>
-            </div>
-            </template>
-            </el-table-column>
-            <el-table-column prop="barIntroduction" label="" width="180">
-            </el-table-column>
-            </el-table>
+              </template>
+              </el-table-column>
+              <el-table-column prop="barIntroduction" label="" width="350">
+              </el-table-column>
+              </el-table>
 
 
 
@@ -374,7 +380,7 @@ const handleRowClick = (row)=>{
 .right-buttons{
   position: fixed;
   margin-top: 100px;
-  margin-left: 700px;
+  margin-left: 900px;
 }
 </style>
 
