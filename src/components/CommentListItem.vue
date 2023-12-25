@@ -2,6 +2,10 @@
 const props = defineProps({
     data:{
         type:Object
+    },
+    idx:{
+        type:Number,
+        default:1
     }
 })
 
@@ -33,9 +37,14 @@ const props = defineProps({
                     <!-- </iframe> -->
                     <!-- {{ data.commentContent }} -->
                 </div>
-                <div class="commentSendTime">
-                            {{ data.createTime }}
-                        </div>
+                <div class="floor-info">
+                    <div class="Floor-Number">
+                    {{ idx }}楼
+                    </div>
+                    <div class="commentSendTime">
+                                {{ data.createTime }}
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -52,23 +61,39 @@ const props = defineProps({
         .comment-body{
             display: flex;
             flex-direction: row;
+            position: relative;
+
             // background-color: aqua;
                 .commentContent{
-                position: relative;
+                // position: relative;
                 float: left;
                 width: 588px;
                 padding: 0 0 8px 20px;
                 background: #fff;
             }
-            .commentSendTime{
-                // position: ;
-                // margin-bottom: 0px;
-                // margin-right: 13px;
+            .floor-info{
                 display: inline-block;
-                margin: 0 4px;
                 color: #999;
                 font-size: 12px;
                 font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+                display: flex;
+                flex-direction: row;
+                // margin: 0 4px;
+                position: absolute;
+                right: 0px;
+                bottom: 0;
+                width: 30%;
+                // height: 20px;
+                line-height: 20px;
+                .commentSendTime{
+                    margin-left: 5px;
+                    // width:50%;
+                }
+                .Floor-Number{
+                    // margin-right: 5px;
+                    // display: inline-block;
+                    width: auto;
+                }
             }
         }
     }

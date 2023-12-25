@@ -12,6 +12,10 @@ const props = defineProps({
         type:Number,
         default:60,
     },
+    isRound:{
+        type:Boolean,
+        default:true,
+    },
     addLink:{
         //点击头像跳转
         type:Boolean,
@@ -33,6 +37,7 @@ const gotoUserCenter = ()=>{
 }
 const getUserAvatarUrl = async()=>{
     if(!props.userId){
+        // alert(123)
         return ;
     }
     let u = await userFindByIdService(props.userId)
@@ -58,9 +63,9 @@ getUserAvatarUrl()
             :style="{
             width:width+'px',
             height:width+'px',
-            'border-radius':width / 2 + 'px'
+            'border-radius':isRound?width / 2:0 + 'px'
             }"
-        :src="AvatarUrl"  >
+        :src="AvatarUrl">
 
         </el-image>
 

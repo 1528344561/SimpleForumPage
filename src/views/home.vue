@@ -185,6 +185,8 @@ const handleRowClick = (row)=>{
   /* margin: auto; */
   .frame-left{
     border-top: 1px solid #DCDCDC;
+    border-bottom: 1px solid #DCDCDC;
+
     width: 210px;
     height: 800px;
     background: url(//tb2.bdstatic.com/tb/static-spage/img/big-bg_3854efe.png) repeat-y -4px 0;

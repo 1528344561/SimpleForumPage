@@ -96,7 +96,7 @@ onMounted(() => {
 
 <template>
 
-    <div class="bkg"> 
+    <div class="post_bkg"> 
         <div class="_container">
             <div class="_content">
                 <div class="TitleAndButton">
@@ -134,8 +134,8 @@ onMounted(() => {
                     </div>
                 </div> -->
                 <div class="Floors">
-                    <div v-for="item in comments " class="comment">
-                        <CommentListItem :data="item"> 
+                    <div v-for="(item,idx) in comments " class="comment">
+                        <CommentListItem :data="item" :idx="idx+1"> 
                         </CommentListItem>
                     </div>
                     <!-- <el-table :data="comments" style="width: 100%" show-header="false" @row-click="handleRowClick">
@@ -264,7 +264,7 @@ onMounted(() => {
     // width: 500%;
 
 }
-.bkg{
+.post_bkg{
     display: flex;
     flex-direction: column;
     width:100%;

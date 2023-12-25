@@ -7,6 +7,7 @@ import TestVue from '@/views/test.vue'
 import BarVue from '@/views/bar.vue'
 import ManageVue from '@/views/manage.vue'
 import PostVue from '@/views/post.vue'
+import UserVue from '@/views/user.vue'
 //定义路由关系
 const routes = [
     {path:'/login',component:LoginVue,meta:{
@@ -21,7 +22,12 @@ const routes = [
     }},
     {path:'/p/:postId',component:PostVue,meta:{
         title:'贴子'
-    }}
+    }},
+    {
+        path:'/user/:id',component:UserVue,meta:{
+            title:'个人主页'
+        }
+    }
 ]
 
 
