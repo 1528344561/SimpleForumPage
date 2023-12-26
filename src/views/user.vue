@@ -24,8 +24,6 @@ const setup=async()=>{
     currentUserId.value = Number(router.currentRoute.value.params.id)
     // alert(currentUserId.value)
     userModel.value.id = currentUserId.value
-
-
 }
 
 //下面是一个教训!!

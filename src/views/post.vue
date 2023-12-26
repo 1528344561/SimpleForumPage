@@ -32,7 +32,12 @@ const postModel = ref({
     createUser:''
 })
 const userInfoStore = useUserInfoStore();
-const comments = ref([])
+const comments = ref({
+    total:20,
+    pageNum:1,
+    pageSize:5,
+    items:[]
+})
 const commentModel = ref({
     commentId: '',
     creatUser: '',
@@ -52,9 +57,33 @@ const lzModel = ref({
 
 })
 const lzId = ref('')
-const commentList = async(postId)=>{
-    let result = await CommentListByPostIdService(postId)
+
+const pageNum = ref(1)
+const total = ref(20)
+const pageSize = ref(5)
+// const onSizeChange=(size)=>{
+//     pageSize.value = size
+// }
+// const onCurrentChange=(num)=>{
+//     pageNum.value = num
+//     commentList()
+// }
+const commentList = async()=>{
+    console.log(pageNum.value)
+    pageNum.value = comments.value.pageNum
+    pageSize.value = comments.value.pageSize
+    let params = {
+        pageNum:comments.value.pageNum,
+        // pageNum:pageNum.value, pageNum 按上面的定义是只读对象.所以通过comments传递就行了
+        pageSize:comments.value.pageSize,
+        postId:postModel.value.postId
+    }
+    let result = await CommentListByPostIdService(params)
     comments.value = result.data
+    comments.value.pageSize=pageSize.value
+    comments.value.pageNum = pageNum.value
+    // comments.value.pageNum = 2  
+    // total.value = result.data.total
     console.log(comments.value)
 }
 const commentAdd = async()=>{
@@ -86,12 +115,15 @@ const setup=async()=>{
     lzModel.value = lz.data
     lzId.value = lz.data.createUser
 
-    commentList(postModel.value.postId)
+    commentList()
 
     // console.log(lz.data)
 
     // alert(lzModel.value.nickname)
 }
+
+
+
 onMounted(() => {
     setup()
     // postModel.value = 
@@ -147,11 +179,13 @@ onMounted(() => {
                         </CommentListItem>
                     </div> -->
 
-                    <DataList :dataSource="comments">
+                    <DataList :dataSource="comments" @loadData="commentList">
                         <template #default="{data,idx}">
-                            <commentListItem :data="data" :idx="idx">
+                            <div>
+                                <commentListItem :data="data" :idx="idx">
 
-                            </commentListItem>
+                                </commentListItem>
+                            </div>
                         </template>
                     </DataList>
 

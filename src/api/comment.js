@@ -3,14 +3,11 @@ import {useTokenStore} from '@/stores/token.js'
 import router from '@/router/index.js'
 
 
-export const CommentListByPostIdService = (postId)=>{
+export const CommentListByPostIdService = (params)=>{
 
     return request.get('/comment/list',{
-        params:{
-            postId:postId
-        }
+        params:params
     })
-
 }
 export const CommentAddService = (commentData)=>{
     return request.post('/comment/add',commentData)

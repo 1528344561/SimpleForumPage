@@ -61,6 +61,7 @@ getUserInfo()
 
 <style lang="css">
     .userInfo{
+        /* width: 100%; */
         color: #000;
         text-decoration:none;
         .user_icon{

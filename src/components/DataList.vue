@@ -3,16 +3,16 @@ import {onMounted} from 'vue'
 const props = defineProps({
     dataSource:{
         type:Object
+    },pageNum:{
+        type:Number
     },
-    totalCount:{
-        type:Number,
-        default:2
-    }
 })
-const emit = defineEmits("loadData")
-const handlePageNoChange = (pageNo)=>{
-    console.log(pageNo)
-    props.dataSource.pageNo = pageNo;//分页跳转
+const emit = defineEmits(["loadData"])
+const handlepageNumChange = (pageNum)=>{
+    console.log(pageNum)
+    //分页跳转
+    // props.pageNum = pageNum; 只读的设置不了
+    props.dataSource.pageNum = pageNum
     emit("loadData")
 }
 onMounted(()=>{
@@ -23,9 +23,9 @@ onMounted(()=>{
 
 <template>
         <!-- {{ props.dataSource }} -->
-
-    <div v-for="(item,idx) in dataSource">
-        <slot :data="item" :idx=idx+1></slot>
+    
+    <div v-for="(item,idx) in dataSource.items?dataSource.items:dataSource" class="data-show">
+        <slot :data="item" :idx=(dataSource.pageNum?((dataSource.pageNum-1)*dataSource.pageSize):0)+idx+1></slot>
     </div>
 
     <div class="pagination">
@@ -34,19 +34,19 @@ onMounted(()=>{
             :total="dataSource.totalCount"
             :page-sizes="[15,30,50,100]"
             :page-size="dataSource.pageSize"
-            :current-page.sync="dataSource.pageNo"
+            :current-page.sync="dataSource.pageNum"
             layout="prev,pager,next"
-            @current-change="handlePageNoChange"
+            @current-change="handlepageNumChange"
             style="text-align: right;">
 
         </el-pagination> -->
 
         <el-pagination
             background
-            :total="totalCount"
-            :current-page.sync="dataSource.pageNo"
+            :total="dataSource.total"
+            :current-page.sync="dataSource.pageNum"
             layout="prev,pager,next"
-            @current-change="handlePageNoChange"
+            @current-change="handlepageNumChange"
             style="text-align: right;"
             
             >
@@ -54,3 +54,14 @@ onMounted(()=>{
         </el-pagination>
     </div>
 </template>
+
+<style lang ="css">
+    .data-show{
+        width: 100%;
+    }
+    .pagination{
+        /* margin-top: 10px; */
+        /* padding: 5px; */
+        
+    }
+</style>

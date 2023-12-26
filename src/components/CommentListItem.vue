@@ -18,9 +18,11 @@ const props = defineProps({
                 
                 <div class="user-info">
                     <router-link :to="'/user/'+data.createUser" style="text-decoration: none;">
-                    <Avatar :userId="data.createUser" :width="50">
-                            
-                    </Avatar>
+
+                    <Avatar :userId="data.createUser" :width="50"></Avatar>
+                    <div class="louzhu">
+                            <!-- <img src="http://tb2.bdstatic.com/tb/static-user/widget/pb_author/images/louzhu_f37d453.png"> -->
+                    </div>
                     <UserInfo :userId="data.createUser">
 
                     </UserInfo>
@@ -39,10 +41,10 @@ const props = defineProps({
                 </div>
                 <div class="floor-info">
                     <div class="Floor-Number">
-                    {{ idx }}楼
+                        {{ idx }}楼
                     </div>
                     <div class="commentSendTime">
-                                {{ data.createTime }}
+                            {{ data.createTime }}
                     </div>
                 </div>
             </div>
@@ -70,6 +72,16 @@ const props = defineProps({
                 width: 588px;
                 padding: 0 0 8px 20px;
                 background: #fff;
+                .user-info{
+                    width: 200px;
+                    // padding: 5px;
+                    .louzhu{
+                        width: 100%;
+                        height: 100%;
+                        background: url(http://tb2.bdstatic.com/tb/static-user/widget/pb_author/images/louzhu_f37d453.png) no-repeat -44px 0;
+                    }
+                }
+            
             }
             .floor-info{
                 display: inline-block;
