@@ -2,7 +2,9 @@ import request from '@/utils/request.js'
 import {useTokenStore} from '@/stores/token.js'
 import router from '@/router/index.js'
 
-
+export const PostAddService = (postData)=>{
+    return request.post('/post/add',postData)
+}
 export const PostListByBarIdService = (barId)=>{
 
     return request.get('/post/list',{

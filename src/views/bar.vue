@@ -3,10 +3,13 @@
 import {ref}from'vue'
 import {barListService}from '@/api/bar.js'
 import {barFindByBarNameService} from '@/api/bar.js'
-import {PostListByBarIdService} from '@/api/post.js'
+import {PostListByBarIdService,PostAddService} from '@/api/post.js'
 import {useRouter} from 'vue-router'
 import {onMounted} from 'vue'
+import {useUserInfoStore} from '@/stores/userInfo.js'
+
 import {barGotoService} from '@/api/bar.js'
+import { ElMessage } from 'element-plus'
 const bar = ref({
     barName:'',
     barIntroduction:'',
@@ -15,6 +18,13 @@ const bar = ref({
 })
 const post = ref({
     
+})
+const userInfoStore = useUserInfoStore();
+const newPostModel = ref({
+    postTitle:'',
+    postContent:'',
+    createUser:0,
+    barId:0,
 })
 const posts = ref([
 
@@ -37,22 +47,36 @@ const setup = async () => {
     bar.value = result.data
     // console.log(bar.value)
     // alert(bar.value.barId)
-    let p = await PostListByBarIdService(bar.value.barId)
-    posts.value = p.data
-    console.log(p.data)
-    console.log(posts.value.length)
+    postList()
     // console.log(bar.value)
     // alert(bar.value)
     // console.log(await barFindByBarNameService(bar.value.barName).message)
     // console.log(bar.value)
 };
+const postList = async()=>{
+    newPostModel.value.barId = bar.value.barId
+    newPostModel.value.createUser = userInfoStore.info.id
+    let p = await PostListByBarIdService(bar.value.barId)
+    posts.value = p.data
+    console.log(p.data)
+    console.log(posts.value.length)
+}
+const handleCreatePost = async()=>{
+    let p = await PostAddService(newPostModel.value)
 
+
+    newPostModel.value.postContent=''
+    newPostModel.value.postTitle=''
+    ElMessage.success(p.message?p.message:'发布成功')
+    postList()
+}
 const handleRowClick = (row)=>{
+    //此函数不再使用,由PostListItem接管 2023年12月26日12:20:32
     const postData = JSON.stringify(row)
     const postTitle = decodeURIComponent(JSON.parse(postData).postTitle)
     // selectBar.value = postName
     console.log()
-    alert(postTitle)
+    // alert(postTitle)
     // router.push({
     // path:'/bar',
     // query:{
@@ -162,6 +186,34 @@ onMounted(() => {
                     </el-main>
                 </el-container>
 
+                </div>
+            </div>
+
+            <div class="create-post-body">
+                <div class="poster-head">
+                    <div class="poster-head-btn">
+                        
+                        <span style="margin-left: 15px;">发表新贴</span>
+                    </div>
+
+                </div>
+                <div class="poster-input-body">
+                    <div class="poster-input">
+                        <el-input v-model="newPostModel.postTitle" placeholder="贴子千万条,等你发一条">
+
+                        </el-input>
+
+                        <el-input type="textarea" style="margin-top: 15px;" :autosize="{ minRows: 8, maxRows: 15}" v-model="newPostModel.postContent" placeholder="与其赞同别人的话语,不如自己畅所欲言">
+
+                        </el-input>
+                    </div>
+                </div>
+                <div class="poster-send-btn-body">
+                    <div class="poster-send-btn">
+                        <button @click="handleCreatePost">
+                            发 表
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -286,5 +338,59 @@ onMounted(() => {
     // width:200px;
     // width:auto;
     width: 730px;
+}
+
+.create-post-body{
+    width: 100%;
+    
+    background: url(//tb2.bdstatic.com/tb/img/frs-footer/f_editor_94fd854.jpg) repeat;
+    .poster-head{
+        margin-top: 15px;
+
+        .poster-head-btn{
+            margin-left: 5px;
+            display: inline-block;
+            width: auto;
+            height: 14px;
+            background: url(//tb2.bdstatic.com/tb/img/poster/poster_icons_c5dd292.png) no-repeat;
+            // text-align: center;
+            
+        }
+    }
+    .poster-input-body{
+        margin-left: 25px;
+        
+        .poster-input{
+            width: 90%;
+
+            .el-input{
+                margin-top: 15px;
+            }
+        }
+    }
+    .poster-send-btn-body{
+        margin-left: 20px;
+        margin-top: 30px;
+        width: 100%;
+        .poster-send-btn{
+            margin-bottom: 15px;
+            // width: auto;
+            // color: #fff;
+
+            button{
+                background: #3e89fa;
+                border-bottom-color: #2b71d9;
+                border: 1px solid transparent;
+                cursor: pointer;
+                border-radius: 2px;
+                font: inherit;
+                font-size: 12px;
+                color: #fff;
+                padding: 7px 14px;
+            }
+        }
+    }
+
+
 }
 </style>

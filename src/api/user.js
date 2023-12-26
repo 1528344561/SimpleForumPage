@@ -27,3 +27,6 @@ export const userFindByIdService = (userId)=>{
         }
     })
 }
+export const userUpdateService = (user)=>{
+    return request.put('/user/update',user)
+}

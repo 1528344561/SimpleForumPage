@@ -10,6 +10,9 @@ const currentUserId = ref(0)
 const userModel = ref({
     id:0
 })
+const loginUserModel = ref({
+
+})
 const postModel = ref({
     postTitle: '',
     postId: '',
@@ -21,9 +24,12 @@ const postModel = ref({
 })
 const posts = ref([])
 const setup=async()=>{
+
     currentUserId.value = Number(router.currentRoute.value.params.id)
     // alert(currentUserId.value)
     userModel.value.id = currentUserId.value
+
+    loginUserModel.value = userInfoStore.info
 }
 
 //下面是一个教训!!
@@ -64,6 +70,11 @@ onMounted(()=>{
                         <UserInfo :userId="userModel.id">
 
                         </UserInfo>
+                    </div>
+                    <div class="edit-profile-btn" v-if="userModel.id===loginUserModel.id">
+                        <a class="btn-sub" target="_blank" href="/i">
+                            <i class="icon-edit"></i>编辑资料
+                        </a>
                     </div>
                 </div>
                 <div class="user-post-show-container">
@@ -131,6 +142,26 @@ onMounted(()=>{
                     bottom: 5px;
 
                     /* left:150px, */
+                }
+                .edit-profile-btn{
+                    a :visited{
+                        color: #333;
+                    }
+                    .btn-sub{
+                        background-color: #fff;
+                        color: #333;
+                        border-color: #ccc;
+                        text-decoration: none;
+                        font-size: 14px;
+                        .icon-edit {
+                            display: inline-block;
+                            width: 14px;
+                            height: 14px;
+                            background: url(//tb2.bdstatic.com/tb/static-ihome/widget/userinfo/images/icon_edit_64876f2.png) no-repeat 0 0;
+                            vertical-align: middle;
+                            margin-top: -0.2em;
+                        }
+                    }
                 }
             }
             .user-post-show-container{

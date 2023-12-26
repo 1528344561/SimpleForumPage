@@ -8,24 +8,31 @@ import BarVue from '@/views/bar.vue'
 import ManageVue from '@/views/manage.vue'
 import PostVue from '@/views/post.vue'
 import UserVue from '@/views/user.vue'
+import IVue from '@/views/i.vue'
 //定义路由关系
 const routes = [
     {path:'/login',component:LoginVue,meta:{
-        title:'登录'
+        title:'登录 - 欢迎你来探索更多内容'
     }},
     {path:'/',component:HomeVue,meta:{
-        title:'SimpleForum'
+        title:'SimpleForum - 简约而不简单'
     }},
-    {path:'/bar',component:BarVue},
+    {path:'/bar',component:BarVue,meta:{
+        title:'SimpleForum - 属于每一个人的网络家园'
+    }},
     {path:'/m',component:ManageVue,meta:{
         title:'管理页'
     }},
     {path:'/p/:postId',component:PostVue,meta:{
-        title:'贴子'
+        title:'贴子 - 每一张贴子,都能遇见每一种精彩'
     }},
     {
         path:'/user/:id',component:UserVue,meta:{
-            title:'个人主页'
+            title:'个人主页 - 贴吧,因为有你而不简单'
+        }
+    },{
+        path:'/i',component:IVue,meta:{
+            title:'修改个人资料 - 尽情个性化不一样的你'
         }
     }
 ]

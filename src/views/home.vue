@@ -199,11 +199,12 @@ const addBar =async()=>{
             </el-button>
         </div>
 
-        <el-drawer v-model="visibleDrawer" direction="rtl" size="50%">
+        <div class="create-bar-aside" style="width: auto">
+          <el-drawer v-model="visibleDrawer" direction="rtl" size="50%" >
             <!-- 添加贴吧表单 -->
             <el-form :model="barModel" label-width="100px" >
                 <el-form-item label="贴吧名称" >
-                    <el-input v-model="barModel.barName" placeholder="请输入标题"></el-input>
+                    <el-input v-model="barModel.barName" placeholder="给你的新贴吧起一个什么名字呢?" style="width: 65%;"></el-input>
                 </el-form-item>
                 <!-- <el-form-item label="贴吧分类">
                     <el-select placeholder="请选择" v-model="barModel.postId">
@@ -212,22 +213,22 @@ const addBar =async()=>{
                     </el-select>
                 </el-form-item> -->
                 <el-form-item label="贴吧封面">
-                    <!-- auto-upload:设置是否自动上传
-                    action:设置服务器接口路径
-                    name:设置上传的文件字段名
-                    headers:设置上传的请求头
-                    on-success:上传成功的回调函数 -->
-                    <el-upload class="avatar-uploader" :auto-upload="true" :show-file-list="false"
-                    action="/api/upload" name="file" :headers="{'Authorization':tokenStore.token}"
-                    :on-success="uploadSuccess">
-                        <img v-if="barModel.barPic" :src="barModel.barPic" class="avatar" />
-                        <el-icon v-else class="avatar-uploader-icon">
-                            <Plus />
-                        </el-icon>
-                    </el-upload>
+                  <!-- auto-upload:设置是否自动上传
+                  action:设置服务器接口路径
+                  name:设置上传的文件字段名
+                  headers:设置上传的请求头
+                  on-success:上传成功的回调函数 -->
+                <el-upload class="avatar-uploader" :auto-upload="true" :show-file-list="false"
+                action="/api/upload" name="file" :headers="{'Authorization':tokenStore.token}"
+                :on-success="uploadSuccess">
+                    <img v-if="barModel.barPic" :src="barModel.barPic" class="avatar" />
+                    <el-icon v-else class="avatar-uploader-icon">
+                        <Plus />
+                    </el-icon>
+                </el-upload>
                 </el-form-item>
-                <el-form-item label="贴吧内容">
-                  <el-input v-model="barModel.barIntroduction"  type="textarea" placeholder="请输入贴吧介绍" autosize=true></el-input>
+                <el-form-item label="贴吧介绍">
+                  <el-input v-model="barModel.barIntroduction"  type="textarea" placeholder="简单介绍一下你的贴吧!" :autosize="{ minRows: 8, maxRows: 15}" style="width: 65%;"></el-input>
                     <!-- <div class="editor">
 
                         <quill-editor
@@ -243,7 +244,9 @@ const addBar =async()=>{
                     <!-- <el-button type="info">草稿</el-button> -->
                 </el-form-item>
             </el-form>
-        </el-drawer>
+          </el-drawer>
+
+        </div>
 
     </div>
   </div>    

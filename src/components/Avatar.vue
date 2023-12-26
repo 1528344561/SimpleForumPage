@@ -63,7 +63,7 @@ getUserAvatarUrl()
             :style="{
             width:width+'px',
             height:width+'px',
-            'border-radius':isRound?width / 2:0 + 'px'
+            'border-radius':(isRound?(width / 2):0) + 'px'
             }"
         :src="AvatarUrl">
 

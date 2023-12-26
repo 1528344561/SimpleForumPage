@@ -21,7 +21,9 @@ const handleGotoBar=async()=>{
       }
     })
 }
+// const refreshTopInfo = async(user)=>{
 
+// }
 </script>
 <template>
     <div class="top" style="width: 100%;">
