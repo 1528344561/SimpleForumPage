@@ -9,6 +9,7 @@ import ManageVue from '@/views/manage.vue'
 import PostVue from '@/views/post.vue'
 import UserVue from '@/views/user.vue'
 import IVue from '@/views/i.vue'
+import SVue from '@/views/superbutton.vue'
 //定义路由关系
 const routes = [
     {path:'/login',component:LoginVue,meta:{
@@ -29,11 +30,12 @@ const routes = [
     {
         path:'/user/:id',component:UserVue,meta:{
             title:'个人主页 - 贴吧,因为有你而不简单'
-        }
-    },{
-        path:'/i',component:IVue,meta:{
+        }},
+    {path:'/i',component:IVue,meta:{
             title:'修改个人资料 - 尽情个性化不一样的你'
-        }
+        }},
+    {path:'/s',component:SVue
+
     }
 ]
 

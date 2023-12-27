@@ -8,6 +8,7 @@ import {useRouter} from 'vue-router';
 import {useUserInfoStore} from '@/stores/userInfo.js';
 //控制注册与登录表单的显示， 默认显示注册
 const isRegister = ref(false)
+const isEnter = ref(false)
 const tokenStore = useTokenStore();
 const router = useRouter();
 //定义数据模型
@@ -211,10 +212,26 @@ const handleGotoHome=async()=>{
 </template>
 
 <style lang="scss" scoped>
+    h1{
+        color: #94949e;
+    }
 /* 样式 */
+@keyframes animate {
+    from{
+        background-position:0%;
+    }
+    to{
+        background-position:400%;
+    }
+}
 .login-page {
     height: 100vh;
-    background-color: #fff;
+    background-color: #161618;
+    // background: 
+    //     linear-gradient(90deg,#03a9f4,#f441a5,#ffeb3b,#03a9f4);
+    // background-size: 400%;
+    //     animation: animate 10s linear infinite;
+    // filter: blur(1px);
 
     .bg {
         // background: url('@/assets/logo3.png') no-repeat 60% center / 240px auto,

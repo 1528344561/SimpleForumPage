@@ -46,7 +46,7 @@ const handleGotoBar=async()=>{
 
     <!-- 搜索栏 -->
     <div class="header_search" v-if="$route.path!=='/login'">
-        <div class="head_inner">
+        <div class="head_inner super-button" >
             <a rel="noopener" title="到贴吧首页" href="/" class="search_logo" style=""></a>
         </div>
         <input class="search_ipt search_inp_border j_search_input tb_header_search_input" 
@@ -95,11 +95,15 @@ const handleGotoBar=async()=>{
         align-items: center;
         /* margin-left: 10px; */
         .header_button{
-            margin-top: 4px;
+            margin-top: 5px;
             width: 120px;
             display: flex;
             justify-content: space-between;
             /* align-items: center; */
         }
+}
+.header_search{
+    margin-top: 20px;
+    align-items: center;
 }
 </style>

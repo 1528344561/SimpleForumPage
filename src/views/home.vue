@@ -89,7 +89,8 @@ const addBar =async()=>{
   console.log(barModel.value)
   let result =await barAddService(barModel.value)
   console.log(result.data)
-  // ElMessage.success(result.message?result.message:'创建成功')
+  visibleDrawer.value = false
+  ElMessage.success(result.message?result.message:'创建成功')
 }
 // alert(userInfoStore.info.id)
 

@@ -111,15 +111,19 @@ onMounted(()=>{
     .user-bkg{
     /* margin-left: -30px; */
     height: 100vh;
-    background-position: center;
+    overflow: hidden;
+    background-position: center -20px;
     background-image: url(https://tb2.bdstatic.com/tb/static-ihome/img/bg_v1_1001.jpg?t=20160117&v=);
+    background-repeat: no-repeat;
         .container{
             margin: 0 auto;
             .header{
                     width: 980px;
                     height: 220px;
                     margin: 20px auto 0;
+                    display: inline-block;
                     position: relative;
+                    padding: 0;
             }
             .userinfo{
                 min-height: 110px;

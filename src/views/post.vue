@@ -90,6 +90,9 @@ const commentAdd = async()=>{
     if(!userInfoStore.info.id){
         ElMessage.error("请先登录")
         return 
+    }else if(!commentModel.value.commentContent){
+        ElMessage.error('不能发送空贴')
+        return 
     }
     // console.log(comment.value)
     console.log(commentModel.value.commentContent)
