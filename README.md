@@ -7,6 +7,13 @@ And the back end of SimpleForum was published [here](https://github.com/15283445
 If you meet some difficult when you deploy this project, you can call me. My qq number is 1528344561
 
 Thank you.
+
+When you download the project,there may be some areas that you need to modify here :
+
+vite.config.js:
+Change those url to your own back-end server
+
+
 -------
 2023-12-26 22:19:08
 
